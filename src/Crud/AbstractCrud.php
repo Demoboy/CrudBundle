@@ -14,6 +14,14 @@
  * file that was distributed with this source code.
  *
  * @copyright 2019
+ */ /**
+ * This file is part of the KMJ Crud package.
+ * Copyright (c) Kaelin Jacobson
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @copyright 2019
  */ /** @noinspection PhpUnusedParameterInspection */
 declare(strict_types = 1);
 
@@ -205,9 +213,9 @@ abstract class AbstractCrud
     /**
      * The filter class to use when using view. If the function returns null, the filtering functionality is disabled
      *
-     * @return string
+     * @return null|string
      */
-    abstract public function getFilterClass(): string;
+    abstract public function getFilterClass(): ?string;
 
     /**
      * Determines if the route parameter should show the filter form.

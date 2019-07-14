@@ -9,7 +9,7 @@
  * @copyright 2019
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace KMJ\CrudBundle\CompilerPass;
 
@@ -34,30 +34,10 @@ class CrudCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): bool
     {
-        if (!$container->has(CrudPool::class)) {
-            return false;
-        }
-
         $this->addCruds($container);
         $this->addActionHandlers($container);
 
         return true;
-    }
-
-    /**
-     * Locates all services tagged as ActionHandlers then adds them to a ActionHandlerPool instance so that they can be
-     * located at runtime
-     *
-     * @param ContainerBuilder $container
-     */
-    private function addActionHandlers(ContainerBuilder $container): void
-    {
-        $def = $container->findDefinition(ActionHandlerPool::class);
-        $actionHandlers = $container->findTaggedServiceIds('kmj_crud.action_handler');
-
-        foreach ($actionHandlers as $id => $actionHandler) {
-            $def->addMethodCall('addToPool', [new Reference($id)]);
-        }
     }
 
     /**
@@ -69,9 +49,23 @@ class CrudCompilerPass implements CompilerPassInterface
     private function addCruds(ContainerBuilder $container): void
     {
         $def = $container->findDefinition(CrudPool::class);
-        $cruds = $container->findTaggedServiceIds('kmj_crud.crud');
 
-        foreach ($cruds as $id => $crud) {
+        foreach ($container->findTaggedServiceIds('kmj_crud.crud') as $id => $crud) {
+            $def->addMethodCall('addToPool', [new Reference($id)]);
+        }
+    }
+
+    /**
+     * Locates all services tagged as ActionHandlers then adds them to a ActionHandlerPool instance so that they can be
+     * located at runtime
+     *
+     * @param ContainerBuilder $container
+     */
+    private function addActionHandlers(ContainerBuilder $container): void
+    {
+        $def = $container->findDefinition(ActionHandlerPool::class);
+
+        foreach ($container->findTaggedServiceIds('kmj_crud.action_handler') as $id => $actionHandler) {
             $def->addMethodCall('addToPool', [new Reference($id)]);
         }
     }
