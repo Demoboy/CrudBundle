@@ -1,0 +1,23 @@
+{
+  "bundles": {
+    "ER2\\CoreBundle\\ER2CoreBundle": [
+      "all"
+    ],
+    "Liip\\ImagineBundle\\LiipImagineBundle": [
+      "all"
+    ]
+  },
+  "copy-from-recipe": {
+    "config/": "%CONFIG_DIR%"
+  },
+  "env": {
+    "AWS_SECRET": "",
+    "AWS_KEY": "",
+    "AWS_S3_VERSION": "latest",
+    "AWS_S3_REGION": "",
+    "AWS_S3_BUCKET": "",
+    "GOOGLE_API_KEY": "",
+    "GOOGLE_CLIENT_ID": "",
+    "GOOGLE_CLIENT_SECRET": ""
+  }
+}

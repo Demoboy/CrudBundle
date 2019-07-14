@@ -1,0 +1,58 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+  _instanceof:
+    Symfony\Component\Config\Loader\LoaderInterface:
+      tags: ['routing.loader']
+    KMJ\CrudBundle\Handler\AbstractActionHandler:
+      tags: ['kmj_crud.action_handler']
+
+  KMJ\CrudBundle\:
+    resource: '../../../src/*'
+    exclude: '../../../src/{DependencyInjection,Entity,Migrations,Tests}'
+
+  KMJ\CrudBundle\Controller\:
+    resource: '../../../src/Controller'
+    tags: ['controller.service_arguments']
+
+  KMJ\CrudBundle\Subscriber\KernelSubscriber:
+    arguments:
+      - "%kmj_crud.request_listener%"
+    tags:
+      - { name: 'kernel.event_subscriber' }
+
+
+# Future Reference
+#
+#    App\Controller\:
+#      resource: '../src/Controller'
+#      tags: ['controller.service_arguments']
+
+#  ER2\CoreBundle\Command\GoogleUserCommand:
+#    arguments:
+#      - "@google.directory"
+#      - "@doctrine.orm.entity_manager"
+#    tags:
+#      - name: "console.command"
+#
+#  ER2\CoreBundle\Subscriber\WarehouseSubscriber:
+#    arguments:
+#      - "@security.token_storage"
+#      - "@security.authorization_checker"
+#      - "@session"
+#      - "@event_dispatcher"
+#      - "@doctrine.orm.entity_manager"
+#      - "@router"
+#      - "@google.directory"
+#    tags:
+#      - name: "kernel.event_subscriber"
+#
+#  ER2\CoreBundle\Voter\UserVoter:
+#    arguments:
+#      - "%env(APP_ENV)%"
+#      - "@request_stack"
+#      - "@security.access.decision_manager"
+#      - "@doctrine.orm.entity_manager"
+#    tags:
+#      - name: "security.voter"
