@@ -1,0 +1,24 @@
+{
+  "name": "kmj/crud-bundle",
+  "license": "MIT",
+  "description": "Provides CRUD operations to entities",
+  "autoload": {
+    "psr-4": {
+      "KMJ\\CrudBundle\\": "src",
+      "KMJ\\CrudBundle\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "symfony/security-bundle": "4.2.*",
+    "symfony/framework-bundle": "4.2.*",
+    "symfony/yaml": "4.2.*",
+    "symfony/templating": "4.2.*",
+    "symfony/form": "4.2.*",
+    "symfony/translation": "4.2.*",
+    "twig/twig": "^2.9",
+    "symfony/orm-pack": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.1"
+  }
+}
